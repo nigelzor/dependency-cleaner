@@ -13,11 +13,12 @@ program
   .usage('[options] [dir]')
   .option('-o, --output <output>', 'Specify output (all|used|unused) (default to all)', 'all')
   .option('-f, --filter <file filter>', 'Specify glob file filter (default to *.js)', '*.js')
+  .option('--directoryFilter <dir filter>', 'Specify glob directory filter (default to !node_modules)', '!node_modules')
   .parse(process.argv)
 
 var path = program.args.shift() || '.'
 
-sweeper(path, program.filter, function (err, dependecies) {
+sweeper(path, program.filter, program.directoryFilter, function (err, dependecies) {
   if (err) console.error(err)
 
   switch (program.output) {
