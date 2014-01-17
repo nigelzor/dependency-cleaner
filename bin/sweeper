@@ -11,7 +11,7 @@ var sweeper = require('../lib/sweeper')
 program
   .version(version)
   .usage('[options] [dir]')
-  .option('-o, --output <output>', 'Specify output (all|used|unused) (default to all)', 'all')
+  .option('-o, --output <output>', 'Specify output (all|used|unused|missing) (default to all)', 'all')
   .option('-f, --filter <file filter>', 'Specify glob file filter (default to *.js)', '*.js')
   .option('--directoryFilter <dir filter>', 'Specify glob directory filter (default to !node_modules)', '!node_modules')
   .parse(process.argv)
@@ -28,5 +28,7 @@ sweeper(path, program.filter, program.directoryFilter, function (err, dependecie
       return console.log(dependecies.used)
     case 'unused':
       return console.log(dependecies.unused)
+    case 'missing':
+      return console.log(dependencies.missing)
   }
 });
